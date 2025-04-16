@@ -1,12 +1,34 @@
-# React + Vite
+# Pizzeria Mamma-mia 🍕  
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Bienvenido a mi proyecto de e-commerce de pizzas, desarrollado con **React** como parte de mi aprendizaje en frontend. Este repositorio contiene una aplicación web que permite a los usuarios explorar diferentes tipos de pizzas, agregarlas al carrito y realizar pedidos en línea.  
 
-Currently, two official plugins are available:
+## 🚀 Tecnologías  
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Este proyecto ha sido construido utilizando:  
+- ⚛️ **React**: Arquitectura basada en componentes para una interfaz interactiva.  
+- 🎨 **React-Bootstrap**: Estilización moderna y responsiva.  
+- 📜 **JavaScript**: Lógica de interacción y manipulación de datos.  
 
-## Expanding the ESLint configuration
+## ✨ Primer hito  
 
-If you are developing a production application, we recommend using TypeScript and enable type-aware lint rules. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+Durante esta primera fase del proyecto, me enfoqué en:  
+- Comprender la arquitectura de **componentes en React**.  
+- Implementar estilos con **React-Bootstrap**.  
+- Aplicar conocimientos previos de **JavaScript** en la funcionalidad de la app.  
+
+## 🔧 Instalación  
+
+Para ejecutar el proyecto localmente:  
+
+1. Clonar el repositorio:  
+   ```bash
+   git clone https://github.com/Inesc28/pizzeria-mamma-mia
+2. Navega al directorio del proyecto:
+   ```bash
+   cd ecommerce-pizzas
+3. Instalar dependencias:
+   ```bash
+   npm install
+4. Ejecutar el proyecto:
+   ```bash
+   npm run dev
