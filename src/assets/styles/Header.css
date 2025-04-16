@@ -1,0 +1,11 @@
+.welcome-to-mm {
+  text-align: center;
+  color: #fff;
+  font-size: 18px;
+  background-image: url(/public/Header.jpg);
+  padding: 150px;
+}
+
+.title-wtmm {
+  font-size: 50px;
+}
