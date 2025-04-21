@@ -17,10 +17,10 @@ const CardPizza = ({ name, img, price, ingredients }) => {
           </ul>
         </section>
         <p>Precio: ${price}</p>
-        <Button variant="secondary" className="me-2">
+        <Button variant="dark" className="me-2">
           Ver más
         </Button>
-        <Button variant="secondary">Añadir</Button>
+        <Button variant="outline-danger">Añadir</Button>
       </Card.Body>
     </Card>
   );
