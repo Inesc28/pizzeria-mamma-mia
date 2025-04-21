@@ -14,7 +14,14 @@ Este proyecto ha sido construido utilizando:
 Durante esta primera fase del proyecto, me enfoqué en:  
 - Comprender la arquitectura de **componentes en React**.  
 - Implementar estilos con **React-Bootstrap**.  
-- Aplicar conocimientos previos de **JavaScript** en la funcionalidad de la app.  
+- Aplicar conocimientos previos de **JavaScript** en la funcionalidad de la app.
+
+## ✨ Segundo hito  
+
+Durante esta segunda fase del proyecto, me enfoqué en:  
+- Aprender los conceptos del Estado y el hook **useState**.  
+- Realizar validaciones a formularios en React.  
+- Comprender algunos eventos en React y su funcionamiento.  
 
 ## 🔧 Instalación  
 
