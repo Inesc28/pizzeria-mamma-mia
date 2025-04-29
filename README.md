@@ -32,7 +32,7 @@ Para ejecutar el proyecto localmente:
    git clone https://github.com/Inesc28/pizzeria-mamma-mia
 2. Navega al directorio del proyecto:
    ```bash
-   cd ecommerce-pizzas
+   cd pizzeria-mamma-mia
 3. Instalar dependencias:
    ```bash
    npm install
