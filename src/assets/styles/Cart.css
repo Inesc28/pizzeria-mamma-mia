@@ -1,0 +1,26 @@
+.shopping-cart {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 15px;
+  border: 1px solid #ccc;
+  padding: 15px;
+  border-radius: 8px;
+  max-width: 600px;
+  margin: auto;
+}
+
+.cart-title {
+  text-align: center;
+}
+
+.pizza-img {
+  width: 100px;
+}
+
+.pizza-name,
+.pizza-price,
+.pizza-count {
+  flex: 1;
+  text-align: center;
+}
