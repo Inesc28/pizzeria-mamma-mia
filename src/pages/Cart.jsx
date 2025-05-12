@@ -1,26 +1,28 @@
 import React, { useState } from "react";
 import Button from "react-bootstrap/Button";
-import { pizzaCart as initialCart } from "../utils/pizzas";
-import "../src/assets/styles/Cart.css";
+import { pizzaCart as initialCart } from "../../utils/pizzas";
+import "../assets/styles/Cart.css";
 
 const Cart = () => {
-  const [cart, setCart] = useState(initialCart); 
-
+  const [cart, setCart] = useState(initialCart);
 
   const increaseCount = (id) => {
-    setCart(cart.map((item) => 
-      item.id === id ? { ...item, count: item.count + 1 } : item
-    ));
-  };
-
-
-  const decreaseCount = (id) => {
-    setCart(cart
-      .map((item) => item.id === id ? { ...item, count: item.count - 1 } : item)
-      .filter((item) => item.count > 0) 
+    setCart(
+      cart.map((item) =>
+        item.id === id ? { ...item, count: item.count + 1 } : item
+      )
     );
   };
 
+  const decreaseCount = (id) => {
+    setCart(
+      cart
+        .map((item) =>
+          item.id === id ? { ...item, count: item.count - 1 } : item
+        )
+        .filter((item) => item.count > 0)
+    );
+  };
 
   const total = cart.reduce((acc, item) => acc + item.price * item.count, 0);
 
@@ -35,14 +37,26 @@ const Cart = () => {
             <img className="pizza-img mb-5" src={item.img} alt="Pizza" />
             <h5 className="pizza-name">{item.name}</h5>
             <p className="pizza-price">${item.price}</p>
-            <Button variant="outline-danger" onClick={() => decreaseCount(item.id)}>-</Button>
+            <Button
+              variant="outline-danger"
+              onClick={() => decreaseCount(item.id)}
+            >
+              -
+            </Button>
             <p className="pizza-count">{item.count}</p>
-            <Button variant="outline-primary" onClick={() => increaseCount(item.id)}>+</Button>
+            <Button
+              variant="outline-primary"
+              onClick={() => increaseCount(item.id)}
+            >
+              +
+            </Button>
           </div>
         ))
       )}
       <h5 className="total mb-5">Total: ${total}</h5>
-      <Button className="mb-4" variant="dark">Pagar</Button>
+      <Button className="mb-4" variant="dark">
+        Pagar
+      </Button>
     </React.Fragment>
   );
 };

@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import Figure from "react-bootstrap/Figure";
-import "../src/assets/styles/Pizza.css"; 
+import "../assets/styles/Pizza.css";
 
 const Pizza = () => {
   const [pizza, setPizza] = useState(null);
@@ -37,11 +37,16 @@ const Pizza = () => {
           </Figure.Caption>
           <p className="ingredients-title">Ingredientes:</p>
           <ul className="ingredients-list">
-            {pizza.ingredients && pizza.ingredients.map((ingredient, index) => (
-              <li key={index} className="ingredient-item">{ingredient}</li>
-            ))}
+            {pizza.ingredients &&
+              pizza.ingredients.map((ingredient, index) => (
+                <li key={index} className="ingredient-item">
+                  {ingredient}
+                </li>
+              ))}
           </ul>
-          <Figure.Caption className="pizza-price">${pizza.price}</Figure.Caption>
+          <Figure.Caption className="pizza-price">
+            ${pizza.price}
+          </Figure.Caption>
         </Figure>
       ) : (
         <p className="loading-message">Cargando información de la pizza...</p>
