@@ -9,10 +9,12 @@ import Login from "./pages/Login";
 import Register from "./pages/Register";
 import NotFound from "../components/NotFound";
 import Profile from "../components/Profile";
+import { CartProvider } from './context/CartContext';
 
 function App() {
   return (
     <>
+      <CartProvider>
       <CustomNavbar />
       <Routes>
         <Route path="/" element={<Home />} />
@@ -21,9 +23,10 @@ function App() {
         <Route path="/register" element={<Register />} />
         <Route path="/cart" element={<Cart />} />
         <Route path="/pizza/p001" element={<Pizza />} />
-        <Route path="/404" element={<NotFound />} />
+        <Route path="*" element={<NotFound />} />
       </Routes>
       <Footer />
+      </CartProvider>
     </>
   );
 }

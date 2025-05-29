@@ -1,30 +1,13 @@
-import React, { useState } from "react";
+import React from "react";
 import Button from "react-bootstrap/Button";
-import { pizzaCart as initialCart } from "../../utils/pizzas";
+import { useCart } from "../context/CartContext"; 
+import { formatNumber } from "../../utils/formatNumber"; 
 import "../assets/styles/Cart.css";
 
 const Cart = () => {
-  const [cart, setCart] = useState(initialCart);
+  const { cart, increaseQuantity, decreaseQuantity, calculateTotal } = useCart(); 
 
-  const increaseCount = (id) => {
-    setCart(
-      cart.map((item) =>
-        item.id === id ? { ...item, count: item.count + 1 } : item
-      )
-    );
-  };
-
-  const decreaseCount = (id) => {
-    setCart(
-      cart
-        .map((item) =>
-          item.id === id ? { ...item, count: item.count - 1 } : item
-        )
-        .filter((item) => item.count > 0)
-    );
-  };
-
-  const total = cart.reduce((acc, item) => acc + item.price * item.count, 0);
+  const total = calculateTotal(); 
 
   return (
     <React.Fragment>
@@ -34,26 +17,26 @@ const Cart = () => {
       ) : (
         cart.map((item) => (
           <div className="shopping-cart" key={item.id}>
-            <img className="pizza-img mb-5" src={item.img} alt="Pizza" />
+            <img className="pizza-img mb-5" src={item.img} alt={item.name} />
             <h5 className="pizza-name">{item.name}</h5>
-            <p className="pizza-price">${item.price}</p>
+            <p className="pizza-price">${formatNumber(item.price)}</p> 
             <Button
               variant="outline-danger"
-              onClick={() => decreaseCount(item.id)}
+              onClick={() => decreaseQuantity(item.id)} 
             >
               -
             </Button>
             <p className="pizza-count">{item.count}</p>
             <Button
               variant="outline-primary"
-              onClick={() => increaseCount(item.id)}
+              onClick={() => increaseQuantity(item.id)}
             >
               +
             </Button>
           </div>
         ))
       )}
-      <h5 className="total mb-5">Total: ${total}</h5>
+      <h5 className="total mb-5">Total: ${formatNumber(total)}</h5> 
       <Button className="mb-4" variant="dark">
         Pagar
       </Button>
