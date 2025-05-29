@@ -1,22 +1,32 @@
 import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
-import { Link } from "react-router-dom";
-import { formatNumber } from "../utils/formatNumber"; 
-import { useCart } from "../src/context/CartContext"; 
+import Button from "react-bootstrap/Button";
+import { Link, useNavigate } from "react-router-dom";
+import { formatNumber } from "../utils/formatNumber";
+import { useCart } from "../src/context/CartContext";
+import { useUser } from "../src/context/UserContext";
 
 const CustomNavbar = () => {
-  const { calculateTotal } = useCart(); 
-  const total = calculateTotal(); 
-  
-  let token = true; 
+  const { calculateTotal } = useCart();
+  const total = calculateTotal();
+
+  const { token, logout } = useUser();
+  const navigate = useNavigate();
 
   let formatPrice = formatNumber(total);
+
+  const handleLogout = () => {
+    logout();
+    navigate("/login");
+  };
 
   return (
     <Navbar bg="dark" data-bs-theme="dark">
       <Container>
-        <Navbar.Brand as={Link} to="/">Pizzeria Mamma Mia!</Navbar.Brand> 
+        <Navbar.Brand as={Link} to="/">
+          Pizzeria Mamma Mia!
+        </Navbar.Brand>
         <Nav className="me-auto">
           <Nav.Link as={Link} to="/">
             🍕 Home
@@ -27,9 +37,13 @@ const CustomNavbar = () => {
               <Nav.Link as={Link} to="/profile">
                 🔐 Profile
               </Nav.Link>
-              <Nav.Link as={Link} to="/register">
+              <Button
+                variant="link"
+                className="nav-link"
+                onClick={handleLogout}
+              >
                 🔐 Logout
-              </Nav.Link>
+              </Button>
             </>
           ) : (
             <>

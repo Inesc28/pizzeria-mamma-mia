@@ -1,24 +1,46 @@
 import { useState, useEffect } from "react";
 import Figure from "react-bootstrap/Figure";
+import Button from "react-bootstrap/Button";
+import { useParams } from "react-router-dom";
+import { useCart } from "../context/CartContext";
+import { formatNumber } from "../../utils/formatNumber";
 import "../assets/styles/Pizza.css";
 
 const Pizza = () => {
   const [pizza, setPizza] = useState(null);
+  const { id } = useParams();
+
+  const { addToCart } = useCart();
 
   useEffect(() => {
     async function getData() {
       try {
-        const res = await fetch("http://localhost:5000/api/pizzas/p001");
+        const res = await fetch(`http://localhost:5000/api/pizzas/${id}`);
+        if (!res.ok) {
+          throw new Error(`Error al cargar la pizza: ${res.statusText}`);
+        }
         const data = await res.json();
         setPizza(data);
-        return data;
       } catch (error) {
-        console.log(error);
+        console.error("Error al obtener la información de la pizza:", error);
+        setPizza(null);
       }
     }
 
     getData();
-  }, []);
+  }, [id]);
+
+  const handleAddToCart = () => {
+    if (pizza) {
+      addToCart({
+        id: pizza.id,
+        img: pizza.img,
+        name: pizza.name,
+        price: pizza.price,
+        desc: pizza.desc,
+      });
+    }
+  };
 
   return (
     <div className="pizza-container">
@@ -44,9 +66,14 @@ const Pizza = () => {
                 </li>
               ))}
           </ul>
-          <Figure.Caption className="pizza-price">
-            ${pizza.price}
-          </Figure.Caption>
+          <div className="d-flex justify-content-between align-items-center mt-3">
+            <Figure.Caption className="pizza-price fs-3 fw-bold">
+              ${formatNumber(pizza.price)}
+            </Figure.Caption>
+            <Button variant="danger" onClick={handleAddToCart}>
+              Añadir al Carrito 🛒
+            </Button>
+          </div>
         </Figure>
       ) : (
         <p className="loading-message">Cargando información de la pizza...</p>

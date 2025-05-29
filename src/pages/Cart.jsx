@@ -1,13 +1,16 @@
 import React from "react";
 import Button from "react-bootstrap/Button";
-import { useCart } from "../context/CartContext"; 
-import { formatNumber } from "../../utils/formatNumber"; 
+import { useCart } from "../context/CartContext";
+import { useUser } from "../context/UserContext";
+import { formatNumber } from "../../utils/formatNumber";
 import "../assets/styles/Cart.css";
 
 const Cart = () => {
-  const { cart, increaseQuantity, decreaseQuantity, calculateTotal } = useCart(); 
+  const { cart, increaseQuantity, decreaseQuantity, calculateTotal } =
+    useCart();
+  const { token } = useUser();
 
-  const total = calculateTotal(); 
+  const total = calculateTotal();
 
   return (
     <React.Fragment>
@@ -19,10 +22,10 @@ const Cart = () => {
           <div className="shopping-cart" key={item.id}>
             <img className="pizza-img mb-5" src={item.img} alt={item.name} />
             <h5 className="pizza-name">{item.name}</h5>
-            <p className="pizza-price">${formatNumber(item.price)}</p> 
+            <p className="pizza-price">${formatNumber(item.price)}</p>
             <Button
               variant="outline-danger"
-              onClick={() => decreaseQuantity(item.id)} 
+              onClick={() => decreaseQuantity(item.id)}
             >
               -
             </Button>
@@ -36,8 +39,8 @@ const Cart = () => {
           </div>
         ))
       )}
-      <h5 className="total mb-5">Total: ${formatNumber(total)}</h5> 
-      <Button className="mb-4" variant="dark">
+      <h5 className="total mb-5">Total: ${formatNumber(total)}</h5>
+      <Button className="mb-4" variant="dark" disabled={!token}>
         Pagar
       </Button>
     </React.Fragment>
