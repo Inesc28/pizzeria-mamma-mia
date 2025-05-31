@@ -4,16 +4,57 @@ import Row from "react-bootstrap/Row";
 import Button from "react-bootstrap/Button";
 import Alert from "react-bootstrap/Alert";
 import { useState } from "react";
+import { useUser } from "../../src/context/UserContext";
+import { useNavigate } from "react-router-dom";
 
 const Register = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirm, setConfirm] = useState("");
+  const [registerError, setRegisterError] = useState(null);
+  const { register } = useUser();
+  const navigate = useNavigate();
 
-  const errorMessage = validate(email, password, confirm);
+  const handleRegister = async (e) => {
+    e.preventDefault();
+    setRegisterError(null);
+
+    const validationMessage = validate(email, password, confirm);
+    if (validationMessage) {
+      setRegisterError(validationMessage);
+      return;
+    }
+
+    const result = await register(email, password);
+    if (result.success) {
+      navigate("/"); // Redirect to home or dashboard on successful registration
+    } else {
+      setRegisterError(result.message);
+    }
+  };
+
+  const validate = (email, password, confirm) => {
+    if (email === "" || password === "" || confirm === "") {
+      return "Todos los campos son obligatorios.";
+    }
+
+    if (!email.includes("@")) {
+      return "El correo electrónico debe contener '@'.";
+    }
+
+    if (password.length < 6) {
+      return "La contraseña debe tener al menos 6 caracteres.";
+    }
+
+    if (password !== confirm) {
+      return "Las contraseñas no coinciden.";
+    }
+
+    return null;
+  };
 
   return (
-    <Form className="mt-5 m-5">
+    <Form className="mt-5 m-5" onSubmit={handleRegister}>
       <h1 className="mb-5">Register</h1>
       <Form.Group as={Row} className="mb-3" controlId="formPlaintextEmail">
         <Form.Label column sm="2">
@@ -65,54 +106,18 @@ const Register = () => {
           />
         </Col>
       </Form.Group>
-      <Button
-        className="mt-4"
-        variant="danger"
-        disabled={errorMessage}
-        onClick={(e) => {
-          setEmail(""),
-            setPassword(""),
-            setConfirm(""),
-            alert("Datos Correctos");
-        }}
-      >
+      <Button className="mt-4" variant="danger" type="submit">
         Submit
       </Button>
 
-      <Alert className="mt-5" variant="danger">
-        Messages!
-        <Alert.Heading>{errorMessage}</Alert.Heading>
-      </Alert>
+      {registerError && (
+        <Alert className="mt-5" variant="danger">
+          <Alert.Heading>Error</Alert.Heading>
+          {registerError}
+        </Alert>
+      )}
     </Form>
   );
-};
-
-const validate = (email, password, confirm) => {
-  const errors = {
-    email: "Email Incorrecto",
-    password: "Contraseña Incorrecta",
-    confirm: "Las contraseñas no coinciden",
-    empty: "Los campos estan vacios",
-  };
-
-  if (email === "" || password === "" || confirm === "") {
-    return (errors.empty = "Todos los campos son obligatorios.");
-  }
-
-  if (!email.includes("@")) {
-    return (errors.email = "El correo electrónico debe contener '@'.");
-  }
-
-  if (password.length < 6) {
-    return (errors.password =
-      "La contraseña debe tener al menos 6 caracteres.");
-  }
-
-  if (password !== confirm) {
-    return (errors.confirm = "Las contraseñas no coinciden.");
-  }
-
-  return null;
 };
 
 export default Register;

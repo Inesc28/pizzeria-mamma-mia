@@ -1,9 +1,25 @@
-import React, { createContext, useState, useContext } from "react";
+import React, { createContext, useState, useContext, useEffect } from "react";
 
 export const CartContext = createContext();
 
 export const CartProvider = ({ children }) => {
-  const [cart, setCart] = useState([]);
+  const [cart, setCart] = useState(() => {
+    try {
+      const localCart = localStorage.getItem("cart");
+      return localCart ? JSON.parse(localCart) : [];
+    } catch (error) {
+      console.error("Failed to parse cart from localStorage", error);
+      return [];
+    }
+  });
+
+  useEffect(() => {
+    try {
+      localStorage.setItem("cart", JSON.stringify(cart));
+    } catch (error) {
+      console.error("Failed to save cart to localStorage", error);
+    }
+  }, [cart]);
 
   const addToCart = (product) => {
     setCart((prevCart) => {
@@ -40,12 +56,17 @@ export const CartProvider = ({ children }) => {
     return cart.reduce((acc, item) => acc + item.price * item.count, 0);
   };
 
+  const clearCart = () => {
+    setCart([]);
+  };
+
   const contextValue = {
     cart,
     addToCart,
     increaseQuantity,
     decreaseQuantity,
     calculateTotal,
+    clearCart,
   };
 
   return (
